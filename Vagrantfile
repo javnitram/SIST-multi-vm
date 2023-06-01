@@ -28,7 +28,7 @@ Vagrant.configure("2") do |config|
       node.vm.network :forwarded_port, guest: 22, host: 22000 + i, id: "ssh"
       node.vm.provision "shell", inline: <<-SHELL
         apt-get update
-        apt-get install --assume-yes pmisc
+        apt-get install --assume-yes psmisc
         echo 'root:vagrant' | chpasswd
         echo 'vagrant:vagrant' | chpasswd
         sed -i 's/PasswordAuthentication no/PasswordAuthentication yes/g' /etc/ssh/sshd_config
