@@ -11,7 +11,7 @@ Vagrant.configure("2") do |config|
     profe.vm.box = "debian/bullseye64"
     profe.vm.network :private_network, ip: "192.168.56.250"
     profe.vm.network :forwarded_port, guest: 22, host: 22000, id: "ssh"
-    profe.vm.synced_folder "../UTIL-gestion-aula/", "/vagrant", disabled: false
+    profe.vm.synced_folder "../", "/UTIL-gestion-aula", disabled: false
     profe.vm.provision "shell", inline: <<-SHELL
       apt-get update
       apt-get install --assume-yes pssh sshpass
