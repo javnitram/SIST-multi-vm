@@ -1,5 +1,4 @@
 Vagrant.configure("2") do |config|
-  config.ssh.insert_key = false
   config.vm.box_download_insecure=true
   config.vm.provider :virtualbox do |vb|
     vb.memory = 256
@@ -37,10 +36,14 @@ Vagrant.configure("2") do |config|
         systemctl restart sshd.service
         mkdir -p /home
         mount -t tmpfs -o size=1M tmpfs /home
-        dd if=/dev/urandom of=/home/random_file bs=1K count=$((RANDOM % 1024 + 1))
         mkdir -p /home/hdssd
         mount -t tmpfs -o size=1M tmpfs /home/hdssd
-        dd if=/dev/urandom of=/home/hdssd/random_file bs=1K count=$((RANDOM % 1024 + 1))
+        for i in 'alumnotd' 'alumnotv' 'examen1' 'examen2'
+        do
+          mkdir -p /home/{.,hdssd}/$i
+          dd if=/dev/urandom of=/home/$i/random_file bs=1K count=$((RANDOM % 1024 + 1))
+          dd if=/dev/urandom of=/home/hdssd/$i/random_file bs=1K count=$((RANDOM % 1024 + 1))
+        done
       SHELL
       # vagrant plugin install vagrant-useradd
       node.useradd.users = ['alumnotd','alumnotv','examen1','examen2']
